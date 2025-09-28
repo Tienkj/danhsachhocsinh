@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm Học sinh Lớp 10A3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4285f4;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Login Form Styles */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: slideInUp 0.6s ease;
+        }
+
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #5f6368;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #fee;
+            color: var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ffcdd2;
+            margin-top: 10px;
+            display: none;
+            animation: shake 0.5s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            color: #5f6368;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .creator-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .creator-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .social-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            color: #0d47a1;
+            transform: translateY(-2px);
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 15px 20px;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .search-container:focus-within {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .search-icon {
+            color: #9aa0a6;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        #search-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 1.1rem;
+            padding: 8px 0;
+        }
+        
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #9aa0a6;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            margin-left: 10px;
+            display: none;
+        }
+        
+        .clear-btn:hover {
+            color: var(--dark);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #f1f3f4;
+            transform: translateY(-2px);
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .student-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        .student-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            padding-right: 40px;
+        }
+        
+        .student-gender {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .male {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .female {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .info-section {
+            margin-bottom: 15px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #5f6368;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: var(--dark);
+        }
+        
+        .parents-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .parent {
+            flex: 1;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .parent-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #5f6368;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            animation: fadeIn 1s ease;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 235, 59, 0.5);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .search-container {
+                margin-bottom: 20px;
+                padding: 12px 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .results-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .student-card {
+                padding: 15px;
+            }
+            
+            .parents-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .creator-info {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-container">
+            <div class="login-logo">🔒</div>
+            <h2 class="login-title">Bảo mật truy cập</h2>
+            <p class="login-subtitle">Nhập mật khẩu để truy cập danh sách học sinh</p>
+            
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        class="login-input" 
+                        id="passwordInput" 
+                        placeholder="Nhập mật khẩu..."
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Đăng nhập
+                </button>
+                
+                <div class="error-message" id="errorMessage">
+                    Mật khẩu không đúng! Vui lòng thử lại.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container hidden" id="mainContent">
+        <header>
+            <h1 class="logo">
+                <span class="logo-icon">🏫</span>
+                Lớp 10A3
+            </h1>
+            <p class="subtitle">Tìm kiếm thông tin học sinh và phụ huynh</p>
+            
+            <div class="creator-info">
+                <div class="creator-name">Thiết kế bởi: Xuân Tiến</div>
+                <a href="https://facebook.com/xuantien2010" class="social-link" target="_blank">
+                    <i class="fab fa-facebook"></i> Facebook: facebook.com/xuantien2010
+                </a>
+            </div>
+        </header>
+        
+        <div class="search-container" id="search-container">
+            <div class="search-icon">🔍</div>
+            <input type="text" id="search-input" placeholder="Tìm kiếm tên học sinh, tên bố, tên mẹ...">
+            <button class="clear-btn">✕</button>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="show-all-btn">
+                <i class="fas fa-list"></i> Danh sách học sinh
+            </button>
+            <button class="btn btn-secondary" id="back-to-search-btn" style="display: none;">
+                <i class="fas fa-search"></i> Quay lại tìm kiếm
+            </button>
+        </div>
+        
+        <div class="results-container" id="results-container">
+            <!-- Kết quả sẽ được hiển thị ở đây -->
+        </div>
+    </div>
+
+    <script>
+        // Password Protection System
+        const CORRECT_PASSWORD = "Tien6kjaz@@"; 
+        let loginAttempts = 0;
+        const MAX_ATTEMPTS = 3;
+
+        // Login functionality
+        function initLogin() {
+            const loginForm = document.getElementById('loginForm');
+            const passwordInput = document.getElementById('passwordInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginOverlay = document.getElementById('loginOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            // Check if already logged in (session storage)
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                showMainContent();
+                return;
+            }
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const enteredPassword = passwordInput.value.trim();
+                
+                if (enteredPassword === CORRECT_PASSWORD) {
+                    // Correct password
+                    sessionStorage.setItem('authenticated', 'true');
+                    showMainContent();
+                } else {
+                    // Wrong password
+                    loginAttempts++;
+                    errorMessage.style.display = 'block';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Disable after max attempts
+                    if (loginAttempts >= MAX_ATTEMPTS) {
+                        loginBtn.disabled = true;
+                        loginBtn.innerHTML = '<i class="fas fa-lock"></i> Quá nhiều lần thử sai!';
+                        errorMessage.innerHTML = `Đã thử sai ${MAX_ATTEMPTS} lần. Vui lòng tải lại trang.`;
+                        
+                        // Reset after 30 seconds
+                        setTimeout(() => {
+                            location.reload();
+                        }, 30000);
+                    } else {
+                        errorMessage.innerHTML = `Mật khẩu không đúng! Còn ${MAX_ATTEMPTS - loginAttempts} lần thử.`;
+                    }
+                }
+            });
+
+            // Hide error message when typing
+            passwordInput.addEventListener('input', function() {
+                if (errorMessage.style.display === 'block') {
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+            // Focus on password input
+            passwordInput.focus();
+        }
+
+        function showMainContent() {
+            const loginOverlay = document.getElementById('loginOverlay');
+            const mainContent = document.getElementById('mainContent');
+            
+            loginOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loginOverlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                mainContent.style.animation = 'fadeIn 0.5s ease';
+            }, 300);
+        }
+
+        // Logout function (for development/testing)
+        function logout() {
+            sessionStorage.removeItem('authenticated');
+            location.reload();
+        }
+
+        // Add logout button to header (hidden by default, can be enabled for testing)
+        function addLogoutButton() {
+            const header = document.querySelector('header');
+            const logoutBtn = document.createElement('button');
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Đăng xuất';
+            logoutBtn.style.cssText = `
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: var(--accent);
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                opacity: 0.7;
+                transition: var(--transition);
+            `;
+            logoutBtn.onmouseover = () => logoutBtn.style.opacity = '1';
+            logoutBtn.onmouseout = () => logoutBtn.style.opacity = '0.7';
+            logoutBtn.onclick = logout;
+            header.style.position = 'relative';
+            header.appendChild(logoutBtn);
+        }
+
+        // Initialize login when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initLogin();
+            // Uncomment the line below to add logout button for testing
+            // addLogoutButton();
+        });
+        // Dữ liệu học sinh
+        const students = [
+            {
+                "STT": 1,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Bảo An",
+                "Ngày sinh": "13/06/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN120 Đường 510, thôn 1, lê lợi, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN120 Đường 510, thôn 1, lê lợi, xã hoằng hóa, thanh hóa",
+                "Nơi sinh": "BV Hoằng Hóa, Hoằng hóa, Thanh Hóa",
+                "Quê quán": "Thôn 1 , lê lợi, Xã Hoàng hóa, Thanh Hóa",
+                "Tên cha": "Nguyễn Thái Sơn",
+                "Nghề nghiệp cha": "viên chức",
+                "Năm sinh cha": "1978",
+                "Tên mẹ": "Nguyễn Thị Hằng",
+                "Nghề nghiệp mẹ": "Buôn bán",
+                "Năm sinh mẹ": "1986",
+                "Điện thoại bố": "0912431322",
+                "Điện thoại mẹ": "0916116858"
+            },
+            {
+                "STT": 2,
+                "Lớp": "10A3",
+                "Họ và tên": "Cao Trọng Tuấn Anh",
+                "Ngày sinh": "20/10/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 24, Thôn Phúc Thọ, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 24, Thôn Phúc Thọ, SN 10, Thôn Nhân Hòa, xã Hoằng Giang, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã Hoằng Hợp, Hoằng Giang, Thanh Hóa",
+                "Quê quán": "Thôn Nhân Hòa, xã Hoằng Giang, Thanh Hóa",
+                "Tên cha": "Cao Trọng Hà",
+                "Nghề nghiệp cha": "công nhân",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Nguyễn Thị Huyền",
+                "Nghề nghiệp mẹ": "công chức",
+                "Năm sinh mẹ": "1983",
+                "Email SLL": "huyentkhh@gmail.com",
+                "Điện thoại bố": "0919045137",
+                "Điện thoại mẹ": "0916487103"
+            },
+            {
+                "STT": 3,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Ngọc Phan Anh",
+                "Ngày sinh": "03/12/2009",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 05 đường 06, Thôn Phúc Thọ, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 05 đường 06, Thôn Phúc Thọ, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Bệnh Viện Phụ Sản Thanh Hóa, Thanh Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Phúc Thọ, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Ngọc Toại",
+                "Nghề nghiệp cha": "Quân đội",
+                "Năm sinh cha": "1984",
+                "Tên mẹ": "Phan Thị Thu Hiền",
+                "Nghề nghiệp mẹ": "Lao động tự do",
+                "Năm sinh mẹ": "1986",
+                "Điện thoại bố": "0888120567",
+                "Điện thoại mẹ": "0366220971"
+            },
+            {
+                "STT": 4,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Trọng Tuấn Anh",
+                "Ngày sinh": "08/08/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN94,Đường HT1, Thôn Hồng Nhuệ 2, Xã Hoằng Châu, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN94,Đường HT1, Thôn Hồng Nhuệ 2, Xã Hoằng Châu, thanh hóa",
+                "Nơi sinh": "Bệnh Viện Huyện Hoằng Hoá, xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Hồng Nhuệ 2, xã Hoằng Châu, Thanh Hóa",
+                "Tên cha": "Lê Trọng Cương",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1983",
+                "Tên mẹ": "Dương Thị Thanh",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1989",
+                "Điện thoại mẹ": "0969337441"
+            },
+            {
+                "STT": 5,
+                "Lớp": "10A3",
+                "Họ và tên": "Vũ Thị Lan Anh",
+                "Ngày sinh": "06/11/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "số nhà 01 ngõ 02, Thôn Đạt Tài 1, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "số nhà 01 ngõ 02, Thôn Đạt Tài 1, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Bệnh viên đa khoa Hoằng Hóa, xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Đạt Tài 1, xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Vũ Huy Tuân",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Trương Thị Phương",
+                "Nghề nghiệp mẹ": "Giáo Viên",
+                "Năm sinh mẹ": "1984",
+                "Điện thoại mẹ": "0367060028"
+            },
+            {
+                "STT": 6,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Thị Ngọc Ánh",
+                "Ngày sinh": "17/03/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "số nhà 17/2 đường 6, Thôn Đạt Tài 1, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 17/2 đường 6, Thôn Đạt Tài 1, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã Hoằng Phúc, xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Đạt Tài 1, xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Sỹ Đa",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1981",
+                "Tên mẹ": "Lê Thị Phương,",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1987",
+                "Điện thoại bố": "0986953682",
+                "Điện thoại mẹ": "0346428756"
+            },
+            {
+                "STT": 7,
+                "Lớp": "10A3",
+                "Họ và tên": "Hoàng Văn Bách",
+                "Ngày sinh": "11/04/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 03 ngõ 05 đường 03, Thôn 5, Xã Hoằng Lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 03 ngõ 05 đường 03, Thôn 5, Xã Hoàng Lộc, thanh hóa",
+                "Nơi sinh": "Trạn y tế xã Hoằng Thái, Xã Hoằng Lộc, Thanh Hóa",
+                "Quê quán": "Thôn 5, Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Hoàng Văn Xuân",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1988",
+                "Tên mẹ": "Lê Thị Tuyết",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1992",
+                "Điện thoại bố": "0366950308"
+            },
+            {
+                "STT": 8,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Trọng Bảo",
+                "Ngày sinh": "19/03/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 07/3 đường HH16, thôn Phú Vinh Đông, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 07/3 đường HH16, Thôn phú vinh đông, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Thôn Đông Thôn, Xã Hoằng Son, Thanh Hóa",
+                "Tên cha": "Nguyễn Trọng Công",
+                "Nghề nghiệp cha": "lái xe",
+                "Năm sinh cha": "1986",
+                "Tên mẹ": "Lê Thị Thủy",
+                "Nghề nghiệp mẹ": "giáo viên",
+                "Năm sinh mẹ": "1988",
+                "Điện thoại bố": "0967181015",
+                "Điện thoại mẹ": "0333259064"
+            },
+            {
+                "STT": 9,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Danh Bằng",
+                "Ngày sinh": "04/09/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 124, Đường 510, Thôn 1, Lê Lợi, xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 124, Đường 510, Thôn 1, Lê Lợi, xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "trạm y tế xã hoằng đồng, xã hoằng hóa, Thanh Hóa",
+                "Quê quán": "Thôn 1, Lê Lợi, xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Nguyễn Danh Sỹ",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1982",
+                "Tên mẹ": "Hoàng Thị Hằng",
+                "Nghề nghiệp mẹ": "Điều dưỡng",
+                "Năm sinh mẹ": "1987",
+                "Điện thoại bố": "0984772725",
+                "Điện thoại mẹ": "0985907899"
+            },
+            {
+                "STT": 10,
+                "Lớp": "10A3",
+                "Họ và tên": "Hắc Anh Dũng",
+                "Ngày sinh": "27/05/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 91 đường 510b, Thôn 6, xã Hoằng Thanh, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 91 đường 510b, Thôn 6, xã Hoằng Thanh, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã Hoằng Ngọc, xã Hoằng Thanh, Thanh Hóa",
+                "Quê quán": "Thôn 6, xã Hoằng Thanh, Thanh Hóa",
+                "Tên cha": "Hắc Ngọc Hoàn",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1975",
+                "Tên mẹ": "Lê Thị Tuân",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1980",
+                "Điện thoại mẹ": "0979456543"
+            },
+            {
+                "STT": 11,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Thế Duy",
+                "Ngày sinh": "06/09/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 25 , Đường Bút Sơn 8, Thôn Bút Cương, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "Ngõ 183, Hoàng Văn Thái, Phường Phương Liệt, Hà Nội",
+                "Nơi sinh": "BV bưu điện - Hà Nội, Quận Đống Đa, Hà Nội",
+                "Quê quán": "Thôn Bút Cương, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Thanh Sơn",
+                "Nghề nghiệp cha": "Bộ Đội",
+                "Năm sinh cha": "1967",
+                "Tên mẹ": "Lê Thị Nguyên",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1982",
+                "Điện thoại bố": "0973447562",
+                "Điện thoại mẹ": "0985384862"
+            },
+            {
+                "STT": 12,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Xuân Duy",
+                "Ngày sinh": "26/07/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 239 - Đường ĐT 510, Thôn Phú Vinh Đông, xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 239 - Đường ĐT 510, Thôn Phú Vinh Đông, xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hóa, Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Phú Vinh Đông, xã Hoằng Hoá, Thanh Hóa",
+                "Tên cha": "Lê Xuân Lịch",
+                "Nghề nghiệp cha": "Bộ Đội",
+                "Năm sinh cha": "1975",
+                "Tên mẹ": "Mai Thị Thu",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại bố": "0986700100",
+                "Điện thoại mẹ": "0975510581"
+            },
+            {
+                "STT": 13,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Minh Đạt",
+                "Ngày sinh": "10/07/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Phố 2, phường Long Anh, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố 2, phường Long Anh, thanh hóa",
+                "Nơi sinh": "Bệnh Viện Phụ Sản Thanh Hóa, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Phường Long Anh, Thanh Hóa",
+                "Tên cha": "Lê Văn Sơn",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1969",
+                "Tên mẹ": "Nguyễn Thị Toan",
+                "Nghề nghiệp mẹ": "Buôn Bán",
+                "Năm sinh mẹ": "1971"
+            },
+            {
+                "STT": 14,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Thành Đạt",
+                "Ngày sinh": "03/03/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN02,đường 01, Thôn 1, Xã Hoằng Lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN02,đường 01, thôn 1, Xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Bệnh viên đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "SN02,đường 01, Thôn 1, Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Nguyễn Bá Thắng",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1987",
+                "Tên mẹ": "Lê Thị Hồng",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1986",
+                "Điện thoại bố": "0399731387"
+            },
+            {
+                "STT": 15,
+                "Lớp": "10A3",
+                "Họ và tên": "Hoàng Hải Đăng",
+                "Ngày sinh": "22/06/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN110, Đường ĐT 510, Thôn 1, Lê Lợi, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN110, Đường ĐT 510, Thôn 1, Lê Lợi, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viên đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "SN110, Đường ĐT 510, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Hoàng Ngọc Nam",
+                "Nghề nghiệp cha": "Kinh Doanh",
+                "Năm sinh cha": "1971",
+                "Tên mẹ": "Nguyễn Thị Hồng",
+                "Nghề nghiệp mẹ": "Kinh  Doanh",
+                "Năm sinh mẹ": "1984",
+                "Điện thoại bố": "0973449066",
+                "Điện thoại mẹ": "0964627224"
+            },
+            {
+                "STT": 16,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Hữu Hải Đăng",
+                "Ngày sinh": "02/01/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 04, Ngõ 04, Đường 01, Thôn Nhân Đạo, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 04, Ngõ 04, Đường 01, Thôn Nhân Đạo, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Trạm y tế Hoằng Đạo, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "SN 04, Ngõ 04, Đường 01, Thôn Nhân Đạo, Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Nguyễn Hữu Đường",
+                "Nghề nghiệp cha": "Cán bộ viên chức xã Hoằng Thanh",
+                "Năm sinh cha": "1976",
+                "Tên mẹ": "Lê Thị Thu",
+                "Nghề nghiệp mẹ": "Kế toán công ty Delta",
+                "Năm sinh mẹ": "1982",
+                "Điện thoại bố": "0986105802",
+                "Điện thoại mẹ": "0914348371"
+            },
+            {
+                "STT": 17,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Lê Hải Đăng",
+                "Ngày sinh": "10/11/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Phố Quan Nội 1, Phường Nguyệt Viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố Quan Nội 1, Phường Nguyệt Viên, thanh hóa",
+                "Nơi sinh": "Bệnh Viện Đa Khoa Hợp Lực, Phường Nguyệt Viên, Thanh Hóa",
+                "Quê quán": "Xã Hoằng Anh, Thanh Hóa",
+                "Tên cha": "Nguyễn Hữu Tuân",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1980",
+                "Tên mẹ": "Lê Thị Dung",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1982",
+                "Điện thoại bố": "0393102925",
+                "Điện thoại mẹ": "0984217205"
+            },
+            {
+                "STT": 18,
+                "Lớp": "10A3",
+                "Họ và tên": "Trần Anh Đoàn",
+                "Ngày sinh": "16/09/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "số nhà 10, đường số 7, thôn trù ninh, xã hoằng hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "số nhà 10, đường số 7, thôn trù ninh, xã hoằng Hóa, thanh hóa",
+                "Nơi sinh": "trạm y tế xã hoằng đạt, hoằng Hóa, Thanh Hóa",
+                "Quê quán": "số nhà 10, đường số 7,thôn trù ninh, hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Trần Văn Út",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1985",
+                "Tên mẹ": "Nguyễn Thị Thanh",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1990",
+                "Điện thoại bố": "0979819145",
+                "Điện thoại mẹ": "0972387255"
+            },
+            {
+                "STT": 19,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Vũ Hồng Hà",
+                "Ngày sinh": "25/07/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "SN 45, Đường 07, Thôn Hạ Vũ 1, xã hoằng hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 45, Đường 07, Thôn Hạ Vũ 1, xã hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Trạn y tế xã Hoằng Đạt, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "SN 45, Đường 07, Thôn Hạ Vũ 1, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Van Bảy",
+                "Nghề nghiệp cha": "Tự do",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Vũ Thị Thêu",
+                "Nghề nghiệp mẹ": "Tự do",
+                "Năm sinh mẹ": "1985",
+                "Điện thoại mẹ": "0328920557"
+            },
+            {
+                "STT": 20,
+                "Lớp": "10A3",
+                "Họ và tên": "Phạm Thu Hà",
+                "Ngày sinh": "29/12/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "SN 55 Đường Bút Sơn 10, Tân Sơn, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 55 Đường Bút Sơn 10, Tân Sơn, Xã HoằngHóa, thanh hóa",
+                "Nơi sinh": "Bệnh Viện Phụ Sản, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Tân Sơn, Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Phạm Văn Vượng",
+                "Nghề nghiệp cha": "Giáo Viên",
+                "Năm sinh cha": "1980",
+                "Tên mẹ": "Lê Thị Phương",
+                "Nghề nghiệp mẹ": "Giáo Viên",
+                "Năm sinh mẹ": "1979",
+                "Email SLL": "lephuongvbox@gmail.com",
+                "Điện thoại bố": "0976978545",
+                "Điện thoại mẹ": "0342064647"
+            },
+            {
+                "STT": 21,
+                "Lớp": "10A3",
+                "Họ và tên": "Đỗ Thị Hạnh",
+                "Ngày sinh": "11/09/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "SN 11, Ngõ 06, Thôn Hà Thái, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 11, Ngõ 06, Thôn Hà Thái, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viên đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "SN 11, Ngõ 06, thôn Hà Thái, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Đỗ Xuân Hệ",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1976",
+                "Tên mẹ": "Nguyễn Thị Tám",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1976",
+                "Điện thoại mẹ": "0353661517"
+            },
+            {
+                "STT": 22,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Ngọc Hiếu",
+                "Ngày sinh": "03/04/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 09 đường 03, Thôn Dư Khánh, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 09 đường 03, Thôn Dư Khánh, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viên đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "số nhà 09 đường 03 thôn Dư Khánh, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Ngọc Hưng",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1981",
+                "Tên mẹ": "Nguyễn Thị Ngà",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1982",
+                "Điện thoại mẹ": "0981083427"
+            },
+            {
+                "STT": 23,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Duy Minh Hiếu",
+                "Ngày sinh": "08/01/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 05 đường 01, Thôn 2, xã Hoằng Lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 05 đường 01, thôn 2, Xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Trạn y tế xã Hoằng Thái, Xã Hoằng Lộc, Thanh Hóa",
+                "Quê quán": "Thôn 2, Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Nguyễn Duy Trung",
+                "Nghề nghiệp cha": "Tự do",
+                "Năm sinh cha": "1986",
+                "Tên mẹ": "Nguyễn Thị Liên",
+                "Nghề nghiệp mẹ": "Tụ do",
+                "Năm sinh mẹ": "1992",
+                "Điện thoại mẹ": "0366525033"
+            },
+            {
+                "STT": 24,
+                "Lớp": "10A3",
+                "Họ và tên": "Phạm Hoàng Hiếu",
+                "Ngày sinh": "08/11/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Phố Nhữ Xá 1, phường Nguyệt Viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố Nhữ Xá 1, phường Nguyệt Viên, thanh hóa",
+                "Nơi sinh": "trạm xá Tào Xuyên, phường Nguyệt Viên, Thanh Hóa",
+                "Quê quán": "Phố Nhữ Xá 1, phường Nguyệt Viên, Thanh Hóa",
+                "Tên cha": "Phạm Quang Đồng",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Nguyễn Thị Thu Hiền",
+                "Nghề nghiệp mẹ": "Kế Toán",
+                "Năm sinh mẹ": "1979",
+                "Điện thoại bố": "0985750647",
+                "Điện thoại mẹ": "0345372656"
+            },
+            {
+                "STT": 25,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Minh Hoàng",
+                "Ngày sinh": "23/01/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 02/08 Đường Bút Sơn 4, Phố Bút Cương, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "02/08 Đường Bút Sơn 4, Phố Bút Cương, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Phố Bút Cương, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Phố Bút Cương, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Lê Hoàng Việt",
+                "Nghề nghiệp cha": "Công an",
+                "Năm sinh cha": "1984",
+                "Tên mẹ": "Nguyễn Thị Ánh",
+                "Nghề nghiệp mẹ": "Nhân viên",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại bố": "0917293789",
+                "Điện thoại mẹ": "0916753698"
+            },
+            {
+                "STT": 26,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Xuân Việt Hoàng",
+                "Ngày sinh": "26/04/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Sn19 Đường TL510, Thôn Đông Anh Vinh, Xã Hoằng Lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "Sn19 Đường TL510, Thôn Đông Anh Vinh, Xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hóa, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Thôn Đông Anh Vinh, Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Lê Xuân Huy",
+                "Nghề nghiệp cha": "Kinh Doanh",
+                "Năm sinh cha": "1980",
+                "Tên mẹ": "Lê Thị Thanh",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1982",
+                "Điện thoại bố": "0903437736",
+                "Điện thoại mẹ": "0912561368"
+            },
+            {
+                "STT": 27,
+                "Lớp": "10A3",
+                "Họ và tên": "Trần Văn Hoàng",
+                "Ngày sinh": "04/12/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "số nhà 77 đường Nguyễn đình ngân, quan nội 3, phường Nguyệt viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "số nhà 77 đường Nguyễn đình ngân, thôn quan nội3, phường Nguyệt viên, thanh hóa",
+                "Nơi sinh": "trạm y tế xã hoằng anh, phường Nguyệt viên, Thanh Hóa",
+                "Quê quán": "quang nội 3, phường Nguyệt viên, Thanh Hóa",
+                "Tên cha": "trần văn thọ",
+                "Nghề nghiệp cha": "công nhân",
+                "Năm sinh cha": "1982",
+                "Tên mẹ": "Nguyễn Thị thắm",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1981",
+                "Email SLL": "tranvanhoang04122010@gmail.com",
+                "Điện thoại bố": "0334349209",
+                "Điện thoại mẹ": "0366865215"
+            },
+            {
+                "STT": 28,
+                "Lớp": "10A3",
+                "Họ và tên": "Ngô Hoàng Hưng",
+                "Ngày sinh": "22/05/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Số nhà 98, Đường ĐH-HH18, Thôn Hoằng Lọc, xã Hoằng Lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "Số nhà 98, Đường ĐH-HH18, Thôn Hoằng Lọc, xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Bệnh viện huyện Hoằng Hoá, xã hoằng hóa, Thanh Hóa",
+                "Quê quán": "Thôn Hoằng Lọc, xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Ngô Minh Tuấn",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1983",
+                "Tên mẹ": "Lê Thị Hồng Phượng",
+                "Nghề nghiệp mẹ": "Kinh Doanh",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại mẹ": "0975382615"
+            },
+            {
+                "STT": 29,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Lê Khoa",
+                "Ngày sinh": "24/08/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "số nhà 08 đường 09, thôn Nội Tý, xã hoằng hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "số nhà 08 đường 09, thôn nội tý, xã hoằng hóa, thanh hóa",
+                "Nơi sinh": "bệnh viện hoằng hóa, xã hoằng hóa, Thanh Hóa",
+                "Quê quán": "thôn nội tý, xã hoằng hóa, Thanh Hóa",
+                "Tên cha": "nguyễn hữu tâm",
+                "Nghề nghiệp cha": "tự do",
+                "Năm sinh cha": "1976",
+                "Tên mẹ": "lê thị huệ",
+                "Nghề nghiệp mẹ": "tự do",
+                "Năm sinh mẹ": "1986",
+                "Email SLL": "khoa2482010kj@gmail.com",
+                "Điện thoại bố": "0382848008",
+                "Điện thoại mẹ": "0975497451"
+            },
+            {
+                "STT": 30,
+                "Lớp": "10A3",
+                "Họ và tên": "Trịnh Thị Thùy Linh",
+                "Ngày sinh": "17/11/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "sn19, đường đh-hh05, thôn Tây Đại, thôn Tây Đại, xã Hoằng Sơn, Thanh Hoá",
+                "Hộ khẩu thường trú": "sn19 , đường đh-hh05,thôn Tây Đại, thôn Tây Đại, Xã Hoằng Sơn, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hoá, Xã Hoằng Sơn, Thanh Hóa",
+                "Quê quán": "thôn Tây Đại, xã Hoằng Sơn, Thanh Hóa",
+                "Tên cha": "Trịnh Văn Tùng",
+                "Nghề nghiệp cha": "công nhân",
+                "Năm sinh cha": "1984",
+                "Tên mẹ": "Hoàng Thị Liên",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1986",
+                "Điện thoại bố": "0384491136",
+                "Điện thoại mẹ": "0369535129"
+            },
+            {
+                "STT": 31,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Khắc Mạnh",
+                "Ngày sinh": "30/12/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Đường Bút Sơn 4, Thôn Bút Cương, Xã Hoàng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "Đường Bút Sơn 4, Thôn Bút Cương, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Trạn Y Tế Xã Hoằng Lộc, Xã Hoằng Lộc, Thanh Hóa",
+                "Quê quán": "Thôn Bút Cương, Xã Hoằng Hoá, Thanh Hóa",
+                "Tên cha": "Lê Khắc Tiến",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1981",
+                "Tên mẹ": "Nguyễn Thị Anh",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại bố": "0865273575"
+            },
+            {
+                "STT": 32,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Văn Mạnh",
+                "Ngày sinh": "24/08/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 15 đường số 3, Thôn hải phúc 1, xã Hoằng Châu, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 15 đường số 3, Thôn hải phúc 1, xã Hoằng Châu, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Hoá, Thanh Hóa",
+                "Quê quán": "Thôn hải phúc 1, xã Hoằng Châu, Thanh Hóa",
+                "Tên cha": "Nguyễn Văn Thống",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Trần thị ngân",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1988",
+                "Điện thoại bố": "0378004105",
+                "Điện thoại mẹ": "0973877845"
+            },
+            {
+                "STT": 33,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Hoàng Minh",
+                "Ngày sinh": "26/01/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN19,đường 02, Thôn 5, Xã Hoằng Thanh, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN19,đường 02, Thôn 5, Xã Hoằng Thanh, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Thanh, Thanh Hóa",
+                "Quê quán": "Thôn 5, Xã Hoằng Thanh, Thanh Hóa",
+                "Tên cha": "Lê Văn Bảy",
+                "Nghề nghiệp cha": "Tụ do",
+                "Năm sinh cha": "1977",
+                "Tên mẹ": "Lê Thị Huệ",
+                "Nghề nghiệp mẹ": "công nhân",
+                "Năm sinh mẹ": "1978",
+                "Điện thoại bố": "0989340727( c gái)",
+                "Điện thoại mẹ": "0325087504"
+            },
+            {
+                "STT": 34,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Hoàng Minh",
+                "Ngày sinh": "17/10/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 360, Thôn Đạo Sơn, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 360, Thôn Đạo Sơn, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hoá, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Thôn Đạo Sơn, Xã Hoằng Hoá, Thanh Hóa",
+                "Tên cha": "Lê Khắc Vinh",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1985",
+                "Tên mẹ": "Lê thị Vân",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1985",
+                "Điện thoại bố": "0966272568",
+                "Điện thoại mẹ": "0388507372"
+            },
+            {
+                "STT": 35,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Duy Anh Minh",
+                "Ngày sinh": "28/09/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 02, Ngõ 02, Đường 02, thôn 1, xã hoằng lộc, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 02, Ngõ 02, Đường 02, thôn 1, Xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Lộc, Thanh Hóa",
+                "Quê quán": "Thôn 1, Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Nguyễn Duy Phúc",
+                "Nghề nghiệp cha": "Lái xe",
+                "Năm sinh cha": "1985",
+                "Tên mẹ": "Lê Thị Hằng",
+                "Nghề nghiệp mẹ": "Giáo Viên",
+                "Năm sinh mẹ": "1985",
+                "Email SLL": "phuc.nduy2017@gmail.com",
+                "Điện thoại bố": "0976712085",
+                "Điện thoại mẹ": "0336086848"
+            },
+            {
+                "STT": 36,
+                "Lớp": "10A3",
+                "Họ và tên": "Thái Quang Minh",
+                "Ngày sinh": "27/07/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Sn 165 Vinh Sơn, Phố Vinh Sơn, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "Sn 165 Vinh Sơn, Phố Vinh Sơn, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Phố Vinh Sơn, Xã Hoằng Hoá, Thanh Hóa",
+                "Quê quán": "Phố Vinh Sơn, Xã Hoằng Hoá, Thanh Hóa",
+                "Tên cha": "Thái Xuân Trung",
+                "Nghề nghiệp cha": "Bộ Đội",
+                "Năm sinh cha": "1978",
+                "Tên mẹ": "Mai Thị Hải",
+                "Nghề nghiệp mẹ": "Tự do",
+                "Năm sinh mẹ": "1980",
+                "Điện thoại bố": "0961756345",
+                "Điện thoại mẹ": "0347762999"
+            },
+            {
+                "STT": 37,
+                "Lớp": "10A3",
+                "Họ và tên": "Hoàng Nhật Nam",
+                "Ngày sinh": "26/10/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 13,ngõ 04, đường 01, thôn Hải Phúc 2, xã Hoằng Châu, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 13,ngõ 04, đường 01, thôn Hải Phúc 2, xã Hoằng Châu, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Hoá, Thanh Hóa",
+                "Quê quán": "thôn Hải Phúc 2, xã Hoằng Châu, Thanh Hóa",
+                "Tên cha": "Hoàng Văn Đức",
+                "Nghề nghiệp cha": "Giáo Viên",
+                "Năm sinh cha": "1981",
+                "Tên mẹ": "Lương Thị Sang",
+                "Nghề nghiệp mẹ": "Công nhân",
+                "Năm sinh mẹ": "1988",
+                "Điện thoại bố": "0978888692",
+                "Điện thoại mẹ": "0979727819"
+            },
+            {
+                "STT": 38,
+                "Lớp": "10A3",
+                "Họ và tên": "Hoàng Sỹ Nam",
+                "Ngày sinh": "10/12/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "PHÚC THỌ, HOẰNG HOÁ, Thanh Hoá",
+                "Hộ khẩu thường trú": "TINH ANH, HẬU LỘC, thanh hóa",
+                "Nơi sinh": "trạm y tế xã văn lộc (cũ), xã Hậu Lộc, Thanh Hóa",
+                "Quê quán": "thôn Tinh Anh, Hậu Lộc, Thanh Hóa",
+                "Tên cha": "Hoàng Sỹ Đông",
+                "Nghề nghiệp cha": "công nhân",
+                "Năm sinh cha": "1978",
+                "Tên mẹ": "Nguyễn Thị Hiền",
+                "Nghề nghiệp mẹ": "tự do",
+                "Năm sinh mẹ": "1979",
+                "Điện thoại bố": "0914518077",
+                "Điện thoại mẹ": "0333072727"
+            },
+            {
+                "STT": 39,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Thị Nam",
+                "Ngày sinh": "25/11/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "Sn15 đường cvd ngõ 4, Thôn Trung Hải, Hoằng Thanh, Thanh Hoá",
+                "Hộ khẩu thường trú": "Sn15 đường cvd ngõ 4, Thôn Trung Hải, Xã Hoằng Thanh, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã Hoằng Thanh, Xã Hoằng Thanh, Thanh Hóa",
+                "Quê quán": "Thôn Trung Hải, Xã Hoằng Thanh, Thanh Hóa",
+                "Tên cha": "Lê Phú Trung",
+                "Nghề nghiệp cha": "Xây Dựng",
+                "Năm sinh cha": "1986",
+                "Tên mẹ": "Nguyễn Thị Phượng",
+                "Nghề nghiệp mẹ": "Kinh Doanh",
+                "Năm sinh mẹ": "1985",
+                "Điện thoại bố": "0966884609",
+                "Điện thoại mẹ": "0394660316"
+            },
+            {
+                "STT": 40,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Đức Nghĩa",
+                "Ngày sinh": "29/08/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Thôn Quan Nội 2, Phường Nguyệt Viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố Quan Nội 2, Phường Nguyệt Viên, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã Hoằng Minh, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Phố Quan Nội 2, Phường Nguyệt Viên, Thanh Hóa",
+                "Tên cha": "Nguyễn Đức Chính",
+                "Nghề nghiệp cha": "Giáo viên",
+                "Năm sinh cha": "1976",
+                "Tên mẹ": "Lê Thị Tú",
+                "Nghề nghiệp mẹ": "Giáo viên",
+                "Năm sinh mẹ": "1984",
+                "Email SLL": "ducchinhthlxl@gmail.com",
+                "Điện thoại bố": "0346663296",
+                "Điện thoại mẹ": "0395633032"
+            },
+            {
+                "STT": 41,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Khả Tiến Quang",
+                "Ngày sinh": "08/03/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Sn 245, Phú Vinh Đông, Xã Hoằng Hoá, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 03, Xã Hoằng Lộc, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hoá, Hải Thượng Lãng Ông, Thanh Hóa",
+                "Quê quán": "Xã Hoằng Lộc, Thanh Hóa",
+                "Tên cha": "Lê Khả Sâm",
+                "Nghề nghiệp cha": "Kinh Doanh",
+                "Năm sinh cha": "1975",
+                "Tên mẹ": "Lê Thị Tình",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại bố": "0961381258"
+            },
+            {
+                "STT": 42,
+                "Lớp": "10A3",
+                "Họ và tên": "Nguyễn Xuân Quang",
+                "Ngày sinh": "18/01/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Thôn Quan Nội 3, Phường Nguyệt Viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố Quan Nội 3, Phường Nguyệt Viên, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hoá, Thanh Hóa, Thanh Hóa",
+                "Quê quán": "Phố Quan Nội 3, Phường Nguyệt Viên, Thanh Hóa",
+                "Tên cha": "Nguyễn Xuân Lý",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1980",
+                "Tên mẹ": "Lê Thị Qúy",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1983",
+                "Điện thoại bố": "0368962443"
+            },
+            {
+                "STT": 43,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Hải Sơn",
+                "Ngày sinh": "30/10/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 93, Đường tỉnh 510, Thôn Trung Sơn, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 93, Đường tỉnh 510, Thôn Trung Sơn, Xã Hoằng Hóa, Xã Hoằng Hoá, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Đại Tài 1, Xã Hoằng Hoá, Thanh Hóa",
+                "Tên cha": "Lê Van Việt",
+                "Nghề nghiệp cha": "Bộ Đội",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Vũ Thị Hồng Loan",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1991",
+                "Email SLL": "sonle301010@gmail.com",
+                "Điện thoại bố": "0866138567",
+                "Điện thoại mẹ": "0866938567"
+            },
+            {
+                "STT": 44,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Trọng Hưng Thịnh",
+                "Ngày sinh": "19/02/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Phố Quan Nội 1, Phường Nguyệt Viên, Thanh Hoá",
+                "Hộ khẩu thường trú": "Phố Quan Nội 1, Phường Nguyệt Viên, thanh hóa",
+                "Nơi sinh": "trạm y tế xã Hoằng Anh, Phường Nguyệt Viên, Thanh Hóa",
+                "Quê quán": "Phố Quan Nội 1, Phường Nguyệt Viên, Thanh Hóa",
+                "Tên cha": "Lê Trong Dũng",
+                "Nghề nghiệp cha": "LĐTD",
+                "Năm sinh cha": "1979",
+                "Tên mẹ": "Lê Thị Mai",
+                "Nghề nghiệp mẹ": "LĐTD",
+                "Năm sinh mẹ": "1981",
+                "Điện thoại bố": "0354350334",
+                "Điện thoại mẹ": "0975138385"
+            },
+            {
+                "STT": 45,
+                "Lớp": "10A3",
+                "Họ và tên": "Lê Thị Hoài Thu",
+                "Ngày sinh": "26/02/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "số nhà 02 đường 6 m, Thôn 1, xã Hoằng Tiến, Thanh Hoá",
+                "Hộ khẩu thường trú": "số nhà 02 đường 6 m, Thôn 1, xã Hoằng Tiến, thanh hóa",
+                "Nơi sinh": "Trạm y tế xã hoằng trường, xã Hoằng Tiến, Thanh Hóa",
+                "Quê quán": "Thôn 1, xã Hoằng Tiến, Thanh Hóa",
+                "Tên cha": "Lê Đình Chiến",
+                "Nghề nghiệp cha": "Đi lưới cá",
+                "Năm sinh cha": "1987",
+                "Tên mẹ": "Trương Thị Hà",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1990",
+                "Điện thoại bố": "0975573845",
+                "Điện thoại mẹ": "0366425464"
+            },
+            {
+                "STT": 46,
+                "Lớp": "10A3",
+                "Họ và tên": "Cao Xuân Tiến",
+                "Ngày sinh": "03/06/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "SN 09, Đường số 04, Thôn Mỹ Đà, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 09,Đường số 04, Thôn Mỹ Đà, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viện phụ sản Thanh Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Mỹ Đà, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Cao Xuân Chung",
+                "Nghề nghiệp cha": "Kỹ sư cầu đường",
+                "Năm sinh cha": "1972",
+                "Tên mẹ": "Lê Thị Tình",
+                "Nghề nghiệp mẹ": "Giáo viên",
+                "Năm sinh mẹ": "1978",
+                "Email SLL": "tinhcdldb@gmail.com",
+                "Điện thoại bố": "0987443684",
+                "Điện thoại mẹ": "0366812694"
+            },
+            {
+                "STT": 47,
+                "Lớp": "10A3",
+                "Họ và tên": "Đỗ Văn Tuấn",
+                "Ngày sinh": "06/12/2010",
+                "Giới tính": "Nam",
+                "Chỗ ở hiện nay": "Số nhà 58,đường phúc Sơn 5, Thôn Phúc Sơn, Xã Hoằng Hóa, Thanh Hoá",
+                "Hộ khẩu thường trú": "Số nhà 58,đường phúc Sơn 5, Thôn Phúc Sơn, Xã Hoằng Hóa, thanh hóa",
+                "Nơi sinh": "Bệnh viện đa khoa Hoằng Hóa, Xã Hoằng Hóa, Thanh Hóa",
+                "Quê quán": "Thôn Phúc Sơn, Xã Hoằng Hóa, Thanh Hóa",
+                "Tên cha": "Đỗ Văn Sơn",
+                "Nghề nghiệp cha": "Kinh doanh",
+                "Năm sinh cha": "1985",
+                "Tên mẹ": "Thiều Thị Thơm",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1984",
+                "Điện thoại mẹ": "0373087516"
+            },
+            {
+                "STT": 48,
+                "Lớp": "10A3",
+                "Họ và tên": "Hoàng Thị Hải Yến",
+                "Ngày sinh": "01/05/2010",
+                "Giới tính": "Nữ",
+                "Chỗ ở hiện nay": "SN 03, Đường 01, Thôn Hải Phúc 2, xã Hoằng Châu, Thanh Hoá",
+                "Hộ khẩu thường trú": "SN 03, Đường 01, Thôn Hải Phúc 2, xã Hoằng Châu, thanh hóa",
+                "Nơi sinh": "Trạm Y tế xã Hoằng Thắng, xã Hoằng Châu, Thanh Hóa",
+                "Quê quán": "Thôn Hải Phúc 2, xã Hoằng Châu, Thanh Hóa",
+                "Tên cha": "Hoàng Ngọc Ánh",
+                "Nghề nghiệp cha": "Công Nhân",
+                "Năm sinh cha": "1986",
+                "Tên mẹ": "Lê Thị Tuyết",
+                "Nghề nghiệp mẹ": "Công Nhân",
+                "Năm sinh mẹ": "1989",
+                "Điện thoại bố": "0369572690(ông nội)",
+                "Điện thoại mẹ": "0336675458( Bác)"
+            }
+        ];
+
+        // Hàm tìm kiếm
+        function searchStudents(query) {
+            if (!query.trim()) {
+                return students;
+            }
+            
+            const searchTerms = query.toLowerCase().split(' ');
+            
+            return students.filter(student => {
+                // Tạo chuỗi tìm kiếm từ tất cả các trường
+                const searchString = Object.values(student)
+                    .filter(value => value && typeof value === 'string')
+                    .join(' ')
+                    .toLowerCase();
+                
+                // Kiểm tra xem tất cả các từ khóa có trong chuỗi tìm kiếm không
+                return searchTerms.every(term => searchString.includes(term));
+            });
+        }
+
+        // Hàm hiển thị kết quả
+        function displayResults(results) {
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
+            
+            if (results.length === 0) {
+                container.innerHTML = '<div class="no-results">Không tìm thấy kết quả nào phù hợp</div>';
+                return;
+            }
+            
+            results.forEach((student, index) => {
+                const card = document.createElement('div');
+                card.className = 'student-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'slideIn 0.5s ease forwards';
+                
+                // Tạo nội dung card
+                card.innerHTML = `
+                    <div class="student-number">${student.STT}</div>
+                    <h2 class="student-name">${student['Họ và tên']}</h2>
+                    <span class="student-gender ${student['Giới tính'] === 'Nam' ? 'male' : 'female'}">${student['Giới tính']}</span>
+                    
+                    <div class="info-section">
+                        <div class="info-label">Ngày sinh</div>
+                        <div class="info-value">${student['Ngày sinh']}</div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-label">Địa chỉ</div>
+                        <div class="info-value">${student['Chỗ ở hiện nay']}</div>
+                    </div>
+                    
+                    <div class="parents-info">
+                        <div class="parent">
+                            <div class="info-label">Bố</div>
+                            <div class="parent-name">${student['Tên cha']}</div>
+                            <div class="info-value">${student['Nghề nghiệp cha']}</div>
+                            <div class="info-value">SĐT: ${student['Điện thoại bố'] || 'Chưa có'}</div>
+                        </div>
+                        <div class="parent">
+                            <div class="info-label">Mẹ</div>
+                            <div class="parent-name">${student['Tên mẹ']}</div>
+                            <div class="info-value">${student['Nghề nghiệp mẹ']}</div>
+                            <div class="info-value">SĐT: ${student['Điện thoại mẹ'] || 'Chưa có'}</div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Xử lý sự kiện tìm kiếm
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const query = e.target.value;
+            const results = searchStudents(query);
+            displayResults(results);
+            
+            // Hiển thị/xóa nút xóa
+            const clearBtn = document.querySelector('.clear-btn');
+            clearBtn.style.display = query ? 'block' : 'none';
+        });
+
+        // Xử lý nút xóa
+        document.querySelector('.clear-btn').addEventListener('click', function() {
+            document.getElementById('search-input').value = '';
+            displayResults(students);
+            this.style.display = 'none';
+        });
+
+        // Xử lý nút hiển thị danh sách học sinh
+        document.getElementById('show-all-btn').addEventListener('click', function() {
+            document.getElementById('search-container').style.display = 'none';
+            document.getElementById('show-all-btn').style.display = 'none';
+            document.getElementById('back-to-search-btn').style.display = 'flex';
+            displayResults(students);
+        });
+
+        // Xử lý nút quay lại tìm kiếm
+        document.getElementById('back-to-search-btn').addEventListener('click', function() {
+            document.getElementById('search-container').style.display = 'flex';
+            document.getElementById('show-all-btn').style.display = 'flex';
+            this.style.display = 'none';
+            document.getElementById('search-input').value = '';
+            document.querySelector('.clear-btn').style.display = 'none';
+            displayResults([]);
+        });
+
+        // Hiển thị tất cả học sinh khi tải trang
+        window.addEventListener('load', function() {
+            displayResults([]);
+        });
+    </script>
+</body>
+</html>
